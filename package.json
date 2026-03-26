@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/FabioV37ga/impostor/issues"
   },
-  "homepage": "https://github.com/FabioV37ga/impostor#readme"
+  "homepage": "https://github.com/FabioV37ga/impostor#readme",
+  "dependencies": {
+    "vite": "^8.0.3"
+  }
 }
