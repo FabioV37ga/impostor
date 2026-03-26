@@ -4,6 +4,7 @@
   "description": "Jogo do impostor",
   "main": "app.js",
   "scripts": {
+    "dev:build": "npm --prefix frontend run build",
     "dev:front": "npm --prefix frontend run dev -- --host",
     "dev:back": "npm --prefix backend run dev"
   },
