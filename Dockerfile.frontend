@@ -9,7 +9,7 @@ RUN npm ci --silent
 
 # Copy source code and build the application
 COPY . .
-RUN npm run dev:build
+RUN npm run build
 
 # Install xdg-utils to prevent Vite preview issues in container environments
 RUN apk add --no-cache xdg-utils
@@ -18,4 +18,4 @@ RUN apk add --no-cache xdg-utils
 EXPOSE 5173
 
 # Run Vite preview server with host accessible from outside container
-CMD ["npm", "run", "dev:front"]
+CMD ["npm", "run", "preview", "--", "--port", "5173", "--host", "0.0.0.0"]
