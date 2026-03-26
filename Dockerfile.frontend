@@ -1,21 +1,20 @@
-# Build stage - Alpine Node.js image
-FROM node:20-alpine
+# Base Node Alpine
+FROM node:24.3-alpine
 
 WORKDIR /app
 
-# Copy package files and install dependencies
-COPY package.json package-lock.json* ./
-RUN npm ci --silent
+# Copiar package.json do frontend e instalar dependências
+COPY frontend/package*.json ./
+RUN npm install
 
-# Copy source code and build the application
-COPY . .
-RUN npm run dev:build
+# Copiar código fonte do frontend
+COPY frontend/ ./
 
-# Install xdg-utils to prevent Vite preview issues in container environments
-RUN apk add --no-cache xdg-utils
+# Build do projeto React com Vite
+RUN npm run build
 
-# Expose port for the preview server
-EXPOSE 5173
+# Definir porta
+EXPOSE 3000
 
-# Run Vite preview server with host accessible from outside container
-CMD ["npm", "run", "preview", "--", "--port", "5173", "--host", "0.0.0.0"]
+# Servir build de produção
+CMD ["npx", "vite", "preview", "--host", "0.0.0.0", "--port", "3000"]
