@@ -1,0 +1,38 @@
+import { Socket, io } from "socket.io-client";
+
+const socket: Socket = io("http://localhost:3001");
+
+socket.on("connect", () => {
+    console.log("Conectado:", socket.id), {
+        transports: ["websocket"]
+    }
+});
+
+document.querySelector("#create-lobby-btn")?.addEventListener("click", () => {
+    console.log("criar sala");
+
+    const nicknameInput = document.querySelector("#nickname-input") as HTMLInputElement;
+    const nickname = nicknameInput.value;
+
+    const inviteCode = gerarInvite();
+
+    socket.emit("create-lobby", {
+        inviteCode,
+        host: nickname,
+    }, (response: any) => {
+        console.log("Lobby criado:", response);
+    });
+});
+
+function gerarInvite(): string {
+    const letras = "abcdefghijklmnopqrstuvwxyz";
+    let inviteCode = "";
+
+    for (let i = 0; i < 6; i++) {
+        const randomIndex = Math.floor(Math.random() * 26);
+        inviteCode += letras[randomIndex];
+    }
+
+    console.log("Invite code:", inviteCode);
+    return inviteCode;
+}
