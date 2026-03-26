@@ -9,7 +9,7 @@ RUN npm ci --silent
 
 # Copy source code and build the application
 COPY . .
-RUN npm run build
+RUN npm run dev:build
 
 # Install xdg-utils to prevent Vite preview issues in container environments
 RUN apk add --no-cache xdg-utils
