@@ -31,5 +31,8 @@ io.on("connection", (socket) => {
         var inviteCode = generateInviteCode()
 
         console.log("lobby criado: ", inviteCode);
+
+        console.log("Socket - Marcador de lobby criado (backend)")
+        socket.emit("lobby-created", inviteCode)
     });
 });

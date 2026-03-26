@@ -24,7 +24,7 @@ class ClientController {
                 ClientController.socket = io("http://192.168.15.2:3001");
                 break;
         }
-        
+
 
         ClientController.socket.on("connect", () => {
             console.log("--- jogador conectado:", ClientController.socket.id)
@@ -33,9 +33,13 @@ class ClientController {
         });
     }
 
-    static createLobby() {
+    static async createLobby() {
         // todo?: adicionar parâmetros?
         ClientController.socket.emit("create-lobby")
+
+        ClientController.socket.on("lobby-created", () => {
+            console.log("Socket - Marcador de lobby criado (frontend)")
+        })
         // ↓ usar?
         // (Response: Response) => {
         // })
