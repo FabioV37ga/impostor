@@ -2,7 +2,7 @@ import { Server } from "socket.io";
 
 const PORT = 3001;
 
-const io = new Server(PORT, {
+export const io = new Server(PORT, {
     cors: { origin: "*" }
 })
 
@@ -13,7 +13,7 @@ io.on("connection", (socket) => {
         console.log("evento recebido:", event, args);
     });
 
-    socket.on("create-lobby", () => {
+    socket.on("create-lobby", (callback) => {
 
         function generateInviteCode(): string {
             const keys = "abcdefghijklmnopqrstuvwxyz"
@@ -33,6 +33,6 @@ io.on("connection", (socket) => {
         console.log("lobby criado: ", inviteCode);
 
         console.log("Socket - Marcador de lobby criado (backend)")
-        socket.emit("lobby-created", inviteCode)
+        callback(inviteCode)
     });
 });
