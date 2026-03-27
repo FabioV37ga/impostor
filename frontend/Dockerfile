@@ -8,7 +8,7 @@ COPY package*.json ./
 RUN npm install
 
 # Copiar código fonte do frontend
-COPY frontend/ ./
+COPY ./
 
 # Build do projeto React com Vite
 RUN npm run build
