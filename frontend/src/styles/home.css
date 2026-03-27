@@ -10,6 +10,9 @@
     margin-top: 40px;
     width: 90%;
     max-width: 500px;
+}
+
+.logo-container img.loaded{
     animation: showLogo .35s linear forwards
 }
 

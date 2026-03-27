@@ -20,6 +20,8 @@ class ClientController {
                     img.onload = () => {
                         resolve()
                         ClientController.areAssetsLoaded = true
+                        document.querySelector(".logo img")?.classList.add("loaded")
+
                         console.log("Asset carregado.")
                     };
                     img.onerror = () => reject(`Erro ao carregar: ${src}`);
