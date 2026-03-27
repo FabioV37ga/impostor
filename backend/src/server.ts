@@ -1,18 +1,22 @@
+import express from "express";
+import http from "http";
 import { Server } from "socket.io";
 
-const PORT = 3001;
+const app = express();
+const server = http.createServer(app);
 
-export const io = new Server(PORT, {
+const PORT = process.env.PORT || 3001;
+
+export const io = new Server(server, {
     cors: {
-        origin:[
+        origin: [
             "http://localhost:3210",
             "http://192.168.15.1:3210",
             "http://192.168.15.2:3210",
-            "https://impostor-3r7r.onrender.com/"
-
-            ]
+            "https://impostor-3r7r.onrender.com" // 👈 sem "/"
+        ]
     }
-})
+});
 
 io.on("connection", (socket) => {
     console.log("--+ jogador conectado:", socket.id);
@@ -24,23 +28,27 @@ io.on("connection", (socket) => {
     socket.on("create-lobby", (callback) => {
 
         function generateInviteCode(): string {
-            const keys = "abcdefghijklmnopqrstuvwxyz"
+            const keys = "abcdefghijklmnopqrstuvwxyz";
 
-            let inviteCode = ''
+            let inviteCode = '';
 
-            for (let digito = 0; digito < 6; digito++) {
+            for (let i = 0; i < 6; i++) {
                 const randomKey = Math.floor(Math.random() * 26);
-                inviteCode += keys[randomKey]
+                inviteCode += keys[randomKey];
             }
 
-            return inviteCode
+            return inviteCode;
         }
 
-        var inviteCode = generateInviteCode()
+        const inviteCode = generateInviteCode();
 
-        console.log("lobby criado: ", inviteCode);
+        console.log("lobby criado:", inviteCode);
 
-        console.log("Socket - Marcador de lobby criado (backend)")
-        callback(inviteCode)
+        callback(inviteCode);
     });
+});
+
+// 👇 MUITO IMPORTANTE
+server.listen(PORT, () => {
+    console.log("Servidor rodando na porta", PORT);
 });

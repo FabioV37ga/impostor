@@ -6,7 +6,8 @@
   "scripts": {
     "test": "\"\"",
     "build": "tsc",
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts"
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "start": "node dist/server.js"
   },
   "repository": {
     "type": "git",
@@ -15,11 +16,10 @@
   "keywords": [
     "\"\""
   ],
-  
   "author": "Fabio Veiga",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.22.1",
+    "@types/express": "^5.0.6",
     "mongoose": "^9.3.3",
     "socket.io": "^4.8.3"
   },
