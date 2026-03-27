@@ -5,7 +5,9 @@ const PORT = 3001;
 export const io = new Server(PORT, {
     cors: {
         origin:[
-            "*",
+            "http://localhost:3210",
+            "http://192.168.15.1:3210",
+            "http://192.168.15.2:3210",
             "https://impostor-3r7r.onrender.com/"
 
             ]
