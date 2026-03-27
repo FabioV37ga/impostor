@@ -26,9 +26,14 @@ class ClientController {
             case url.includes("192.168.15.2"):
                 ClientController.socket = io("http://192.168.15.2:3001");
                 break;
+
+            case url.includes("onrender.com"):
+                ClientController.socket = io(url);
+                break;
         }
 
         ClientController.socket.on("connect_error", () => {
+            // this.view.toggleLoadingScreen("show")
             var loadingscreen = document.querySelector(".loading-screen") as HTMLElement
             loadingscreen.style.display = "flex"
         })
