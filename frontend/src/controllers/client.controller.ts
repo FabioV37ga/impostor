@@ -28,7 +28,7 @@ class ClientController {
                 break;
 
             case url.includes("onrender.com"):
-                ClientController.socket = io(url);
+                ClientController.socket = io("https://impostor-game-k9kg.onrender.com/");
                 break;
         }
 
