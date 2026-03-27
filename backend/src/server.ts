@@ -3,7 +3,13 @@ import { Server } from "socket.io";
 const PORT = 3001;
 
 export const io = new Server(PORT, {
-    cors: { origin: "*" }
+    cors: {
+        origin:[
+            "*",
+            "https://impostor-3r7r.onrender.com/"
+
+            ]
+    }
 })
 
 io.on("connection", (socket) => {
