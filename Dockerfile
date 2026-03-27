@@ -1,5 +1,5 @@
 # Usa Node leve
-FROM node:20-alpine
+FROM node:20
 
 # Define diretório de trabalho
 WORKDIR /app
