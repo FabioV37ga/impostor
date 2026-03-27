@@ -1,17 +1,14 @@
 FROM node:20
 
-WORKDIR /app/backend
+WORKDIR /app
 
-COPY backend/package.json .
+COPY backend/package.json ./
+RUN npm install
 
-# força resolução correta no Linux
-RUN npm install --include=optional
-
-COPY backend .
+COPY backend ./
 
 RUN npm run build
 
-RUN npm install -g serve
-
 EXPOSE 10000
-CMD ["serve", "-s", "dist", "-l", "10000"]
+
+CMD ["node", "dist/index.js"]
