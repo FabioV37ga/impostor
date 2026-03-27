@@ -34,6 +34,7 @@ class ClientController {
 
         ClientController.socket.on("connect_error", () => {
             // this.view.toggleLoadingScreen("show")
+            console.log("Conexão ao socket não estabelecida, tentando conexão...")
             var loadingscreen = document.querySelector(".loading-screen") as HTMLElement
             loadingscreen.style.display = "flex"
         })
