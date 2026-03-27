@@ -4,6 +4,29 @@ import { Socket, io } from "socket.io-client";
 class ClientController {
     static socket: Socket
     static createLobbyDelay: Boolean = false;
+    static areAssetsLoaded: Boolean = false;
+
+    static async preloadAssets() {
+        const assets = [
+            "/background.png",
+            "/logo.png"
+        ]
+        await Promise.all(
+            assets.map(src => {
+                return new Promise<void>((resolve, reject) => {
+                    const img = new Image();
+                    img.src = src;
+
+                    img.onload = () => {
+                        resolve()
+                        ClientController.areAssetsLoaded = true
+                        console.log("Asset carregado.")
+                    };
+                    img.onerror = () => reject(`Erro ao carregar: ${src}`);
+                });
+            })
+        );
+    }
 
     static connect() {
 
@@ -42,14 +65,22 @@ class ClientController {
         ClientController.socket.once("connect", () => {
             console.log("--- jogador conectado:", ClientController.socket.id)
 
+
             const home = new HomeController
         });
 
-        ClientController.socket.on("connect", () => {
+        ClientController.socket.on("connect", async () => {
+
             // this.view.toggleLoadingScreen("hide")
 
-            var loadingscreen = document.querySelector(".loading-screen") as HTMLElement
-            loadingscreen.style.display = "none"
+            await ClientController.preloadAssets()
+            if (ClientController.areAssetsLoaded == false) {
+                console.log("carregando assets...")
+            } else {
+                var loadingscreen = document.querySelector(".loading-screen") as HTMLElement
+                loadingscreen.style.display = "none"
+            }
+
         });
     }
 
