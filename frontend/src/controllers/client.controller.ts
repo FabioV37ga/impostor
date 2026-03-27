@@ -74,12 +74,15 @@ class ClientController {
             // this.view.toggleLoadingScreen("hide")
 
             await ClientController.preloadAssets()
-            if (ClientController.areAssetsLoaded == false) {
-                console.log("carregando assets...")
-            } else {
-                var loadingscreen = document.querySelector(".loading-screen") as HTMLElement
-                loadingscreen.style.display = "none"
-            }
+            setTimeout(() => {
+
+                if (ClientController.areAssetsLoaded == false) {
+                    console.log("carregando assets...")
+                } else {
+                    var loadingscreen = document.querySelector(".loading-screen") as HTMLElement
+                    loadingscreen.style.display = "none"
+                }
+            }, 2000);
 
         });
     }
