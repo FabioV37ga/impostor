@@ -9,7 +9,8 @@
 .logo-container img {
     margin-top: 40px;
     width: 90%;
-    max-width: 500px
+    max-width: 500px;
+    animation: showLogo .35s linear forwards
 }
 
 .logo {
@@ -17,7 +18,6 @@
     top: 0;
     margin: 0 auto;
     z-index: 3;
-    animation: showLogo .35s linear forwards
 }
 
 @keyframes showLogo{
