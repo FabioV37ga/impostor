@@ -4,7 +4,7 @@ FROM node:24.3-alpine
 WORKDIR /app
 
 # Copiar package.json do frontend e instalar dependências
-COPY frontend/package*.json ./
+COPY package*.json ./
 RUN npm install
 
 # Copiar código fonte do frontend
