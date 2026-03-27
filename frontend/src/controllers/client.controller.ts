@@ -37,9 +37,9 @@ class ClientController {
         // todo?: adicionar parâmetros?
         ClientController.socket.emit("create-lobby")
 
-        ClientController.socket.on("lobby-created", () => {
-            console.log("Socket - Marcador de lobby criado (frontend)")
-        })
+        // ClientController.socket.on("lobby-created", () => {
+        //     console.log("Socket - Marcador de lobby criado (frontend)")
+        // })
         // ↓ usar?
         // (Response: Response) => {
         // })

@@ -1,3 +1,6 @@
+/* ---------------------------------- */
+/* Logo */
+
 .logo-container {
     display: flex;
     justify-content: center;
@@ -8,6 +11,43 @@
     width: 90%;
     max-width: 500px
 }
+
+
+/* ---------------------------------- */
+/* texto "multiplayer" */
+
+.button-area-text {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.button-area-text p {
+    color: white;
+    text-transform: uppercase;
+    font-family: monospace;
+    letter-spacing: 5px;
+    font-size: 12px;
+}
+
+.horizontal-bar {
+    display: block;
+    height: 2px;
+    width: 50px;
+    background: linear-gradient(9052deg, rgba(125, 19, 0, 0) 0%, rgb(255 123 0 / 86%) 100%);
+
+    margin: 0 10px
+}
+
+.horizontal-bar:nth-child(3) {
+    transform: scaleX(-1);
+}
+
+
+
+
+/* ---------------------------------- */
+/* Botões */
 
 .button-area,
 .buttons {
@@ -20,24 +60,34 @@
 }
 
 .button-area {
-    height: 180px
+    height: 200px
 }
 
 .buttons {
-    height: 120px
+    height: 140px
 }
 
 #join-lobby-btn,
 #create-lobby-btn {
-
+    text-shadow: 0px 0px 9px rgba(255, 255, 255, 1);
+    color: white;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
-    width: 200px;
-    height: 50px;
+    width: 240px;
+    height: 60px;
     padding: 0;
     border: none;
     border-radius: 10px;
     cursor: pointer;
+
+    /* clip-path: polygon(10px 0%,
+            calc(100% - 10px) 0%,
+            100% 10px,
+            100% calc(100% - 10px),
+            calc(100% - 10px) 100%,
+            10px 100%,
+            0% calc(100% - 10px),
+            0% 10px); */
 
     font-weight: bold;
     font-size: 14px;
@@ -46,7 +96,6 @@
 
     /* Gradiente */
     background: linear-gradient(180deg, #ffd54a 0%, #ff7a00 60%, #ff2a00 100%);
-    color: #2b0000;
 
     /* Glow */
     box-shadow:
