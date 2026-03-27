@@ -9,7 +9,7 @@ COPY frontend/package*.json ./frontend/
 
 # Instala dependências
 WORKDIR /app/frontend
-RUN npm ci
+RUN npm install
 
 # Volta pra raiz e copia o restante
 WORKDIR /app
