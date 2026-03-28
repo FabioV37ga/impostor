@@ -1,5 +1,6 @@
 import HomeController from "./home.controller.js";
 import { Socket, io } from "socket.io-client";
+import { getElements, homeElements } from "../selectors/home.selector.js"
 
 class ClientController {
     static socket: Socket
@@ -11,6 +12,7 @@ class ClientController {
             "/background.png",
             "/logo.png"
         ]
+
         await Promise.all(
             assets.map(src => {
                 return new Promise<void>((resolve, reject) => {
@@ -20,7 +22,8 @@ class ClientController {
                     img.onload = () => {
                         resolve()
                         ClientController.areAssetsLoaded = true
-                        document.querySelector(".logo img")?.classList.add("loaded")
+                        HomeController.elements.logo.style.display="initial"
+                        HomeController.elements.logo.classList.add("loaded")
 
                         console.log("Asset carregado.")
                     };

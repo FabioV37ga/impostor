@@ -10,6 +10,7 @@
     margin-top: 40px;
     width: 90%;
     max-width: 500px;
+    display:none;
 }
 
 .logo-container img.loaded{
