@@ -1,1 +1,7 @@
-1. preload de imagens entra na lógica de carregamento, e afeta aparecimento da tela de carregamento.
+1. create e remove do home.
+2. create e remove do createRoom
+3. create e remove de joinRoom
+
+
+
+    - window manager?

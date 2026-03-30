@@ -1,3 +1,9 @@
+:root {
+    --uiText: rgb(254 235 172);
+    --glow: linear-gradient(180deg, #ffd54a 0%, #ff7a00 60%, #ff2a00 100%);
+}
+
+
 body,
 main {
     height: 100vh;
@@ -11,5 +17,12 @@ main {
     background-position: center;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+}
+
+.content {
+    height: 100%;
+    width: 100%;
+    display: flex;
     justify-content: center;
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,10 @@
     <title>Impostor - Engane seus amigos!</title>
     <link rel="stylesheet" href="styles/document.css">
     <link rel="stylesheet" href="styles/loading.css">
+    <link rel="stylesheet" href="styles/auth.css">
     <link rel="stylesheet" href="styles/home.css">
 </head>
+
 <body>
     <main>
         <section class="loading-screen">
@@ -23,16 +26,33 @@
                 <img src="./logo.png" alt="">
             </div>
         </section>
-        <section class="button-area">
-            <div class="button-area-text">
-                <span class="horizontal-bar"></span>
-                <p>multiplayer</p>
-                <span class="horizontal-bar"></span>
-            </div>
-            <div class="buttons">
-                <button id="join-lobby-btn">Entrar em sala</button>
-                <button id="create-lobby-btn">criar uma sala</button>
-            </div>
+        <section class="content">
+            <section class="auth">
+                <div class="name-text">
+                    <span class="horizontal-bar"></span>
+                    <p>digite seu nome</p>
+                    <span class="horizontal-bar"></span>
+                </div>
+                <input type="text" id="nickname_input" placeholder="Nome...">
+                <div class="char-selection">
+                    <div class="char-text">
+                        <span class="horizontal-bar"></span>
+                        <p>escolha seu personagem</p>
+                        <span class="horizontal-bar"></span>
+                    </div>
+                    <div class="chars">
+                        <div class="char">
+                            <img src="./charMale.png" alt="">
+                            <p>Masculino</p>
+                        </div>
+                        <div class="char">
+                            <img src="./charFemale.png" alt="">
+                            <p>Feminino</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" id="confirm-auth">confirmar</a>
+            </section>
         </section>
         <section class="tutorial">
             <!-- como jogar -->
@@ -40,4 +60,5 @@
     </main>
 </body>
 <script type="module" src="app.ts"></script>
+
 </html>
