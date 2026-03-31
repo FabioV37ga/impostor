@@ -32,7 +32,7 @@ class ClientController {
                     img.src = src;
 
                     img.onload = () => {
-                        console.log(img)
+                        console.log("[front] (pre-load) imagem carregada:", img)
                         resolve()
 
                         ClientController.elements.logo.style.display = "initial"
@@ -42,7 +42,7 @@ class ClientController {
             })
         );
         ClientController.areAssetsLoaded = true
-        console.log("[front] Assets pré-carregados")
+        console.log("[front] (pre-load) Assets pré-carregados")
 
     }
 
@@ -76,7 +76,7 @@ class ClientController {
 
         // Erro de conexão
         ClientController.socket.on("connect_error", (err) => {
-            console.log("[front] conexão ao socket falhou, aguardando...")
+            console.log("[front] (client-connection) conexão ao socket falhou, aguardando...")
 
             ClientController.view.toggleLoadingScreen(true)
             return err;
@@ -84,7 +84,7 @@ class ClientController {
 
         // Conexão estabelecida (primeira vez)
         ClientController.socket.once("connect", async () => {
-            console.log("[front] jogador conectado:", ClientController.socket.id)
+            console.log("[front] (client-connection) jogador conectado:", ClientController.socket.id)
 
             await ClientController.preloadAssets()
 
@@ -122,7 +122,7 @@ class ClientController {
 
         // todo?: adicionar parâmetros?
         if (ClientController.createLobbyDelay == true) {
-            console.log("--- CREATE-LOBBY-REQUEST recusado: onCooldown")
+            console.log("[front] (client-connection) processo de criação de lobby já em andamento.")
             return new Promise((resolve) => {
                 resolve("error")
             })

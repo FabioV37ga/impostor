@@ -28,7 +28,7 @@ class AuthController {
             id: userID
         }
 
-        console.log(this.userData)
+        // console.log(this.userData)
         AuthController.user = this.userData
 
         // se houver dados salvos no cache, preencher o formulário automaticamente
@@ -39,15 +39,15 @@ class AuthController {
             // cache ? this.view.renderCacheData() : null
             if (cache) {
                 if (cache.nickname && cache.character) {
-                    console.log("cache encontrado no primeiro acesso, pulando tela de autenticação")
+                    console.log("[front] (auth-cache) cache encontrado no primeiro acesso, pulando tela de autenticação")
                     this.windowState = "hidden"
                 }
             } else {
-                console.log("nenhum cache encontrado no primeiro acesso, mostrando tela de autenticação")
+                console.log("[front] (auth-cache) nenhum cache encontrado no primeiro acesso, mostrando tela de autenticação")
                 this.initialize()
             }
         } else {
-            console.log("não é o primeiro acesso, mostrando tela de autenticação com dados preenchidos")
+            console.log("[front] (auth-cache) não é o primeiro acesso, mostrando tela de autenticação com dados preenchidos")
             this.initialize()
 
         }
