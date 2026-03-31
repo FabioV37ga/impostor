@@ -1,6 +1,6 @@
 import html from "nanohtml"
 
-export const home = html`
+const home = html`
     <section class="button-area">
         <div class="button-area-text">
             <span class="horizontal-bar"></span>
@@ -13,3 +13,5 @@ export const home = html`
         </div>
     </section>
 `
+
+export default home

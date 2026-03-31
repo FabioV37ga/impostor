@@ -5,3 +5,14 @@
 
 
     - window manager?
+
+
+*
+
+<!-- estrutura de usuário salvo no cache -->
+
+var b = '{"nickname": "veiga","character": "2","id": "10"}'
+
+localStorage.setItem("impostor_player_data", b)
+localStorage.getItem("impostor_player_data")
+localStorage.removeItem("impostor_player_data")

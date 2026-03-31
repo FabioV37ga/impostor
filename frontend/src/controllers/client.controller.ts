@@ -1,16 +1,22 @@
-import HomeController from "./home.controller.js";
 import { Socket, io } from "socket.io-client";
-import { getElements, homeElements } from "../selectors/home.selector.js"
+import { getElements, clientElements } from "../selectors/client.selector.js"
 import ClientView from "../views/client.view.js";
+import AuthController from "./auth.controller.js";
+import HomeController from "./home.controller.js";
 
 class ClientController {
     static socket: Socket
     static createLobbyDelay: Boolean = false;
     static areAssetsLoaded: Boolean = false;
-    static currentPage:  "home" | "creating" | "joining" | "lobby" | "game" = "home"
+    static currentPage: "home" | "creating" | "joining" | "lobby" | "game" = "home"
     static view = new ClientView()
+    static elements: clientElements
+    static isFirstAccess: boolean = true
+
 
     static async preloadAssets() {
+        ClientController.elements = getElements()
+
         const assets = [
             "/background.png",
             "/logo.png",
@@ -20,75 +26,96 @@ class ClientController {
 
         await Promise.all(
             assets.map(src => {
-                return new Promise<void>((resolve, reject) => {
+                return new Promise<void>((resolve) => {
+
                     const img = new Image();
                     img.src = src;
 
                     img.onload = () => {
                         console.log(img)
                         resolve()
-                        ClientController.areAssetsLoaded = true
-                        
-                        HomeController.elements.logo.style.display="initial"
-                        HomeController.elements.logo.classList.add("loaded")
+
+                        ClientController.elements.logo.style.display = "initial"
+                        ClientController.elements.logo.classList.add("loaded")
                     };
                 });
             })
         );
+        ClientController.areAssetsLoaded = true
+        console.log("[front] Assets pré-carregados")
+
     }
 
     static async connect() {
 
-        // todo: tela de carregamento
-        // this.view.toggleLoadingScreen("show")
-
+        // -----------------
+        // Controle de conexão baseado na URL, para facilitar desenvolvimento e deploy
 
         const url = window.location.href
 
-        switch (true) {
-
-            case url.includes("localhost"):
-                ClientController.socket = io("http://localhost:3001");
-                break;
-
-            case url.includes("192.168.15.1"):
-                ClientController.socket = io("http://192.168.15.2:3001");
-                break;
-
-            case url.includes("192.168.15.2"):
-                ClientController.socket = io("http://192.168.15.2:3001");
-                break;
-
-            case url.includes("onrender.com"):
-                ClientController.socket = io("https://impostor-game-k9kg.onrender.com/");
-                break;
+        const URL_MAP: Record<string, string> = {
+            localhost: "http://localhost:3001",
+            "192.168.15.1": "http://192.168.15.1:3001",
+            "192.168.15.2": "http://192.168.15.2:3001",
+            "onrender.com": "https://impostor-game-k9kg.onrender.com/"
         }
 
-        ClientController.socket.on("connect_error", () => {
-            console.log("Conexão ao socket não estabelecida, tentando conexão...")
+        function getSocketUrl(url: string): string {
+            const { protocol, hostname } = window.location
+
+            const match = Object.entries(URL_MAP).find(([key]) => hostname.includes(key))
+
+            return match ? match[1] : `${protocol}//${hostname}:3001`
+        }
+
+        ClientController.socket = io(getSocketUrl(url))
+
+        // -----------------
+        // Eventos de conexão
+
+
+        // Erro de conexão
+        ClientController.socket.on("connect_error", (err) => {
+            console.log("[front] conexão ao socket falhou, aguardando...")
+
             ClientController.view.toggleLoadingScreen(true)
+            return err;
         })
 
+        // Conexão estabelecida (primeira vez)
         ClientController.socket.once("connect", async () => {
-            console.log("--- jogador conectado:", ClientController.socket.id)
-            const home = new HomeController
-            
+            console.log("[front] jogador conectado:", ClientController.socket.id)
+
             await ClientController.preloadAssets()
+
             setTimeout(() => {
                 ClientController.view.toggleLoadingScreen(false)
+                const authsScreen = new AuthController(ClientController.socket.id as string, this.isFirstAccess)
+                this.isFirstAccess = false
+
+                if (authsScreen.windowState == "hidden"){
+                    document.querySelector(".auth")?.remove()
+                    const home = new HomeController()
+                }
+
             }, 2000);
-            
+
         });
-        
+
+        // Reconexão (após perda de conexão)
         ClientController.socket.on("connect", async () => {
             setTimeout(() => {
                 if (ClientController.areAssetsLoaded == false) {
-                    console.log("carregando assets...")
+                    console.log("[front] carregando assets...")
                 } else {
                     ClientController.view.toggleLoadingScreen(false)
                 }
             }, 2000);
         });
+    }
+
+    static authenticate(nickname: string, character: string, id: string) {
+
     }
 
     static async createLobby(): Promise<string | "error"> {
