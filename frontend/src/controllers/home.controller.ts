@@ -7,8 +7,9 @@ class HomeController {
     static elements: homeElements
     view: homeView
 
-    constructor() {
-        this.view = new homeView()
+    constructor(userData: {nickname: string, character: string}) {
+        this.view = new homeView(userData)
+        console.log("HomeController criado com os seguintes dados do usuário:", userData)
         HomeController.elements = getElements()
         this.addClickEvents()
     }

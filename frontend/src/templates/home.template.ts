@@ -1,6 +1,6 @@
 import html from "nanohtml"
 
-export default function home() {
+export default function home(userData: {nickname: string, character: string}) {
     return html`
     <section class="button-area">
         <div class="button-area-text">
@@ -14,10 +14,10 @@ export default function home() {
         </div>
         <div class="profile">
             <div class="profile-image">
-            
+                <img src="./${userData.character}.png" alt="">
             </div>
             <p class="profile-name">
-                nickname
+                ${userData.nickname}
             </p>
         </div>
     </section>

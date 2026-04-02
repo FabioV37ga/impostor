@@ -9,8 +9,6 @@
 
 # Structure
 
-2. Mover preload de assets para utils/
-
 <!-- estrutura de usuário salvo no cache -->
 
 var b = '{"nickname": "veiga","character": "2","id": "10"}'

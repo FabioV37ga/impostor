@@ -6,10 +6,10 @@ class HomeView extends ui{
     elements: homeElements
 
     
-    constructor(){
+    constructor(userData: {nickname: string, character: string}){
         super()
 
-        this.render(home())
+        this.render(home(userData))
         this.elements = getElements()
     }
 }

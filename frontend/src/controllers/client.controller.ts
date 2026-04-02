@@ -88,10 +88,9 @@ class ClientController {
     static render(page: "auth" | "home" | "creating" | "joining" | "lobby" | "game") {
         switch (page) {
             case "auth":
-                console.log("AAAAAAAAAAAAAAAAAAA")
                 ClientController.authScreen = new AuthController(
                     ClientController.socket.id as string,
-                    () => { this.homeScreen = new HomeController() }
+                    () => { this.homeScreen = new HomeController(AuthController.user) }
                 )
                 break
         }
