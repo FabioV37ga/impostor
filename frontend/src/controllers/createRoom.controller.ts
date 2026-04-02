@@ -1,10 +1,15 @@
 import CreateRoomView from "../views/createRoom.view.js";
+import { mobileNavigation } from "../utils/mobileNavigation.util.js";
 
 class CreateRoomController {
     view: CreateRoomView
     callback: ()=> void
 
     constructor(callback: () => void) {
+        if (!mobileNavigation.isRenderingFromPopstate) {
+            history.pushState({tela: "createRoom"}, '', '')
+        }
+
         this.view = new CreateRoomView()
         this.addClickEvents()
         this.callback = callback

@@ -3,6 +3,7 @@ import u from "umbrellajs"
 import ClientController from "./client.controller.js"
 import homeView from "../views/home.view.js"
 import CreateRoomController from "./createRoom.controller.js"
+import { mobileNavigation } from "../utils/mobileNavigation.util.js"
 
 class HomeController {
     static elements: homeElements
@@ -10,6 +11,9 @@ class HomeController {
     view: homeView
 
     constructor(userData: { nickname: string, character: string }) {
+        if (!mobileNavigation.isRenderingFromPopstate) {
+            history.pushState({tela: "home"}, '', '')
+        }
         this.view = new homeView(userData)
         this.userData = userData
         console.log("HomeController criado com os seguintes dados do usuário:", userData)
@@ -29,7 +33,11 @@ class HomeController {
             // }
             this.view.remove(HomeController.elements.homeScreen)
             
-            var CreateRoomScreen = new CreateRoomController(() => new HomeController(this.userData))
+            mobileNavigation.renderCreateRoom = ()=>{
+                new CreateRoomController(() => mobileNavigation.renderHome())
+            }
+
+            mobileNavigation.renderCreateRoom()
         })
 
         u(HomeController.elements.profile).on("click", () => {

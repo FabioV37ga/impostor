@@ -1,6 +1,7 @@
 import u from "umbrellajs";
 import { getElements, authElements } from "../selectors/auth.selector.js";
 import AuthView from "../views/auth.view.js";
+import { mobileNavigation } from "../utils/mobileNavigation.util.js";
 
 interface user {
     nickname: string
@@ -10,16 +11,18 @@ interface user {
 
 class AuthController {
     static user: user;
-    view: AuthView;
-    elements: authElements;
-    id: string;
+    view!: AuthView;
+    elements!: authElements;
+    id!: string;
     userData: user;
     callback: () => void;
 
 
     constructor(userID: string, callback: () => void) {
 
-        
+        if (!mobileNavigation.isRenderingFromPopstate) {
+            history.pushState({tela: "auth"}, '', '')
+        }
 
         this.callback = callback
         // todo: adicionar cache para evitar que o usuário tenha que preencher os dados toda vez que entrar na página de autenticação

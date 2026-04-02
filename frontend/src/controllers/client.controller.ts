@@ -5,6 +5,7 @@ import AuthController from "./auth.controller.js";
 import HomeController from "./home.controller.js";
 // import { assets } from "../utils/assetList.util.js";
 import { preloadAssets } from "../utils/preloadAssets.js";
+import { mobileNavigation } from "../utils/mobileNavigation.util.js";
 
 class ClientController {
     static socket: Socket
@@ -88,10 +89,16 @@ class ClientController {
     static render(page: "auth" | "home" | "creating" | "joining" | "lobby" | "game") {
         switch (page) {
             case "auth":
-                ClientController.authScreen = new AuthController(
-                    ClientController.socket.id as string,
-                    () => { this.homeScreen = new HomeController(AuthController.user) }
-                )
+                mobileNavigation.renderAuth = () =>{
+                    ClientController.authScreen = new AuthController(
+                        ClientController.socket.id as string,
+                        () => { 
+                            mobileNavigation.renderHome = () => new HomeController(AuthController.user) 
+                            mobileNavigation.renderHome()
+                        }
+                    )
+                }
+                mobileNavigation.renderAuth()
                 break
         }
     }
