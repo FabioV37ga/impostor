@@ -25,6 +25,12 @@ io.on("connection", (socket) => {
 
     socket.onAny((event, ...args) => {
         console.log("evento recebido:", event, args);
+
+        if (/^.+-spacebar/.test(event)) {
+            console.log("evento de spacebar recebido:", event, args)
+            socket.emit("spacebar-received", event, args)
+        }
+
     });
 
     socket.on("create-lobby", (words, callback) => {
@@ -48,6 +54,7 @@ io.on("connection", (socket) => {
 
         callback(inviteCode);
     });
+
 });
 
 // 👇 MUITO IMPORTANTE

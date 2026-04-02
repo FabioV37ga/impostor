@@ -17,8 +17,11 @@ class ClientController {
     static authScreen: AuthController;
     static homeScreen: HomeController
 
+    static temp: string
+
 
     static async connect() {
+
 
         // -----------------
         // Controle de conexão baseado na URL, para facilitar desenvolvimento e deploy
@@ -83,6 +86,19 @@ class ClientController {
                 }
             }, 2000);
         });
+
+         document.querySelector("body")?.addEventListener("keydown", (event) => {
+            if (event.code === "Space") {
+                console.log("spacebar!")
+                ClientController.socket.emit(`${ClientController.temp}-spacebar`, ClientController.socket.id, () => {
+
+                })
+            }
+        })
+
+        ClientController.socket.on("spacebar-received", (event, args) => {
+            console.log("spacebar recebido de volta:", event, args)
+        })
     }
 
     // static authenticate(nickname: string, character: string, id: string) {
@@ -116,6 +132,8 @@ class ClientController {
                     }, 3000);
 
                     console.log("[front] (client-connection) lobby criado com código de convite:", inviteCode)
+
+                    ClientController.temp = inviteCode
 
                     resolve(inviteCode as string)
                 })
