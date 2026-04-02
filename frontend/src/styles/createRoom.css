@@ -98,3 +98,10 @@
     padding: 5px;
     border-radius: 5px;
 }
+
+#createRoom-close{
+    text-transform: capitalize;
+    margin-top: 20px;
+    color: white;
+    font-family: sans-serif;
+}

@@ -1,9 +1,11 @@
 # Primary
 
-1. Desenvolver create room
 2. Desenvolver join room
 
 
+todo:
+    - Adicionar efeitos visuais de erro de autenticação (dados insuficientes).
+    - Adicionar efeitos visuais de erro de criação de sala (dados insuficientes).
 
 
 
