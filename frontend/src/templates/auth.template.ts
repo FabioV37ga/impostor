@@ -27,7 +27,7 @@ export function auth() {
                 </div>
             </div>
         </div>
-        <a href="#" id="confirm-auth">confirmar</a>
+        <a href="" id="confirm-auth">confirmar</a>
     </section>
 `
 }
