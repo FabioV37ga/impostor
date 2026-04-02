@@ -3,7 +3,8 @@ import { getElements, clientElements } from "../selectors/client.selector.js"
 import ClientView from "../views/client.view.js";
 import AuthController from "./auth.controller.js";
 import HomeController from "./home.controller.js";
-import { assets } from "../utils/assetList.util.js";
+// import { assets } from "../utils/assetList.util.js";
+import { preloadAssets } from "../utils/preloadAssets.js";
 
 class ClientController {
     static socket: Socket
@@ -16,31 +17,6 @@ class ClientController {
     static authScreen: AuthController;
     static homeScreen: HomeController
 
-
-    static async preloadAssets() {
-        ClientController.elements = getElements()
-
-        await Promise.all(
-            assets.map(src => {
-                return new Promise<void>((resolve) => {
-
-                    const img = new Image();
-                    img.src = src;
-
-                    img.onload = () => {
-                        console.log("[front] (pre-load) imagem carregada:", img)
-                        resolve()
-
-                        ClientController.elements.logo.style.display = "initial"
-                        ClientController.elements.logo.classList.add("loaded")
-                    };
-                });
-            })
-        );
-        ClientController.areAssetsLoaded = true
-        console.log("[front] (pre-load) Assets pré-carregados")
-
-    }
 
     static async connect() {
 
@@ -83,11 +59,16 @@ class ClientController {
         ClientController.socket.once("connect", async () => {
             console.log("[front] (client-connection) jogador conectado:", ClientController.socket.id)
 
-            await ClientController.preloadAssets()
+            ClientController.areAssetsLoaded = await preloadAssets(() => this.view.showLogo())
 
             setTimeout(() => {
                 ClientController.view.toggleLoadingScreen(false)
-                ClientController.authScreen = new AuthController(ClientController.socket.id as string, ()=>{ this.homeScreen = new HomeController()})
+
+                ClientController.authScreen = new AuthController(
+                    ClientController.socket.id as string,
+                    () => { this.homeScreen = new HomeController() }
+                )
+
             }, 2000);
 
         });

@@ -90,6 +90,7 @@ class AuthController {
         this.userData.character = character
         AuthController.user = this.userData
         console.log(AuthController.user)
+        this.view.selectCharacter(character)
     }
 
     confirmAuth(){
