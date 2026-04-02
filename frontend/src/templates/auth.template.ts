@@ -1,13 +1,14 @@
 import html from "nanohtml"
 
-export const auth = html`
+export function auth() {
+    return html`
     <section class="auth">
         <div class="name-text">
             <span class="horizontal-bar"></span>
             <p>digite seu nome</p>
             <span class="horizontal-bar"></span>
         </div>
-        <input type="text" id="nickname_input" placeholder="Digite seu nome">
+        <input type="text" id="nickname_input" placeholder="Nome...">
         <div class="char-selection">
             <div class="char-text">
                 <span class="horizontal-bar"></span>
@@ -15,11 +16,12 @@ export const auth = html`
                 <span class="horizontal-bar"></span>
             </div>
             <div class="chars">
-                <div class="char">
-                    <img src="./charMale.png" alt="">
+                <div class="char charMale">
+                    <div class="charPointer">▼</div>
+                    <img src="./charMale.png" alt="" class="charSelected">
                     <p>Masculino</p>
                 </div>
-                <div class="char">
+                <div class="char charFemale">
                     <img src="./charFemale.png" alt="">
                     <p>Feminino</p>
                 </div>
@@ -28,7 +30,10 @@ export const auth = html`
         <a href="#" id="confirm-auth">confirmar</a>
     </section>
 `
+}
 
-export const charPointer = html`
+export function charPointer() {
+    return html`
     <div class="charPointer">▼</div>
 `
+}

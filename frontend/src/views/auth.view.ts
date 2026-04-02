@@ -1,14 +1,15 @@
 import u from "umbrellajs";
 import ui from "./ui.view.js";
-import { authElements } from "../selectors/auth.selector.js";
-import { charPointer } from "../templates/auth.template.js";
+import { charPointer, auth } from "../templates/auth.template.js";
+import { getElements, authElements } from "../selectors/auth.selector.js";
 
 class AuthView extends ui{
     elements: authElements
 
-    constructor(elements: authElements){
+    constructor(){
         super()
-        this.elements = elements
+        this.render(auth())
+        this.elements = getElements()
     }
 
 
@@ -28,7 +29,7 @@ class AuthView extends ui{
         
         var selectedCharacter = u(`.${character}`).first() as HTMLElement
 
-        selectedCharacter.append(charPointer)
+        selectedCharacter.append(charPointer())
 
         var charImages = u(".charSelected").nodes as HTMLImageElement[]
 

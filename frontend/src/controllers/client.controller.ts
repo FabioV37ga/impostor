@@ -67,10 +67,7 @@ class ClientController {
             setTimeout(() => {
                 ClientController.view.toggleLoadingScreen(false)
 
-                ClientController.authScreen = new AuthController(
-                    ClientController.socket.id as string,
-                    () => { this.homeScreen = new HomeController() }
-                )
+                ClientController.render("auth")
 
             }, 2000);
 
@@ -86,19 +83,18 @@ class ClientController {
                 }
             }, 2000);
         });
+    }
 
-         document.querySelector("body")?.addEventListener("keydown", (event) => {
-            if (event.code === "Space") {
-                console.log("spacebar!")
-                ClientController.socket.emit(`${ClientController.temp}-spacebar`, ClientController.socket.id, () => {
-
-                })
-            }
-        })
-
-        ClientController.socket.on("spacebar-received", (event, args) => {
-            console.log("spacebar recebido de volta:", event, args)
-        })
+    static render(page: "auth" | "home" | "creating" | "joining" | "lobby" | "game") {
+        switch (page) {
+            case "auth":
+                console.log("AAAAAAAAAAAAAAAAAAA")
+                ClientController.authScreen = new AuthController(
+                    ClientController.socket.id as string,
+                    () => { this.homeScreen = new HomeController() }
+                )
+                break
+        }
     }
 
     // static authenticate(nickname: string, character: string, id: string) {

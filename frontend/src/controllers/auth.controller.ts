@@ -19,13 +19,13 @@ class AuthController {
 
     constructor(userID: string, callback: () => void) {
 
+        
+
         this.callback = callback
         // todo: adicionar cache para evitar que o usuário tenha que preencher os dados toda vez que entrar na página de autenticação
         // cache here
         var localStorageCache = localStorage.getItem("impostor_player_data")
         var cache: user | null = localStorageCache ? JSON.parse(localStorageCache) : null
-        // if (cache){}
-
 
         this.userData = {
             nickname: cache ? cache.nickname : "",
@@ -33,12 +33,8 @@ class AuthController {
             id: userID
         }
 
-        // console.log(this.userData)
         AuthController.user = this.userData
 
-        // se houver dados salvos no cache, preencher o formulário automaticamente
-        // Quando o usuário entra na página pela primeira vez, verifica cache, se houver, esconde tela de auth.
-        // Se o usuário voltar à pagina de auth para editar seus dados, o cache carrega pra preencher o nickname e char
         this.initialize()
 
         if (cache)
@@ -53,8 +49,8 @@ class AuthController {
     }
 
     initialize() {
+        this.view = new AuthView()
         this.elements = getElements()
-        this.view = new AuthView(this.elements)
         this.addEventListeners()
     }
 

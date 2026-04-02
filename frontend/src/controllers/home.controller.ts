@@ -1,22 +1,16 @@
 import { getElements, homeElements } from "../selectors/home.selector.js"
 import u from "umbrellajs"
 import ClientController from "./client.controller.js"
-import home from "../templates/home.template.js"
+import homeView from "../views/home.view.js"
 
 class HomeController {
     static elements: homeElements
+    view: homeView
 
     constructor() {
-        this.render()
+        this.view = new homeView()
         HomeController.elements = getElements()
         this.addClickEvents()
-    }
-
-
-    render() {
-        var content = u(".content").first() as HTMLElement
-        
-        content.append(home)
     }
 
     addClickEvents() {
@@ -29,6 +23,14 @@ class HomeController {
                 console.log("[click event] - processo de criação do Lobby já em andamento, recusado.")
 
             }
+        })
+
+        u(HomeController.elements.profile).on("click", () => {
+            console.log("[click event] - profile (botão)")
+
+            this.view.remove(HomeController.elements.homeScreen);
+
+            ClientController.render("auth")
         })
     }
 }

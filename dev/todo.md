@@ -3,13 +3,6 @@
 1. Desenvolver create room
 2. Desenvolver join room
 
-todo:
-    →   Fazer loop de 'Auth → Home → Auth' (identificar, redirecionar para home, voltar para tela de 
-        identificação se usuário quiser trocar algo) - controlado pelo clientController
-
-
-
-
 
 
 
