@@ -1,3 +1,5 @@
+// TODO: organizar código, separar em arquivos, etc
+
 import express from "express";
 import http from "http";
 import { Server } from "socket.io";
@@ -25,7 +27,7 @@ io.on("connection", (socket) => {
         console.log("evento recebido:", event, args);
     });
 
-    socket.on("create-lobby", (callback) => {
+    socket.on("create-lobby", (words, callback) => {
 
         function generateInviteCode(): string {
             const keys = "abcdefghijklmnopqrstuvwxyz";

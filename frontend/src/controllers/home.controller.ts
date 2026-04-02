@@ -26,10 +26,8 @@ class HomeController {
             var status = await ClientController.createLobby()
 
             if (status == "error") {
-                console.log("[click event] - XXXXX")
+                console.log("[click event] - processo de criação do Lobby já em andamento, recusado.")
 
-            } else {
-                console.log("[click event] -- processo de criação do Lobby completo.")
             }
         })
     }

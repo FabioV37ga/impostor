@@ -28,3 +28,7 @@ export const auth = html`
         <a href="#" id="confirm-auth">confirmar</a>
     </section>
 `
+
+export const charPointer = html`
+    <div class="charPointer">▼</div>
+`

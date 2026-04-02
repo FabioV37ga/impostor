@@ -1,10 +1,12 @@
 class ClientView {
+    // Passar elementos vindos do controller, vindos do selector no constructor?
     toggleLoadingScreen(show: boolean) {
-        var loadingscreen = document.querySelector(".loading-screen") as HTMLElement
+        // Isso aqui não ta seguindo o padrão de selector → método
+        var loadingScreen = document.querySelector(".loading-screen") as HTMLElement
         if (show) {
-            loadingscreen.style.display = "flex"
+            loadingScreen.style.display = "flex"
         } else {
-            loadingscreen.style.display = "none"
+            loadingScreen.style.display = "none"
         }
     }
 }

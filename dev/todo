@@ -2,12 +2,26 @@
 2. create e remove do createRoom
 3. create e remove de joinRoom
 
+1. repensar arquitetura de auth...
+    - Auth deve ser feito sempre que o usuário entrar no site, a tela nunca é dispensada.
+    - O que acontece é que, se houverem dados salvos no cache, preenche o nickname e escolhe o character
+    - A única coisa que o usuário precisa fazer é clicar em "confirmar"
+    - Desse jeito, dispensa a volta toda que seria trocar o id do usuário em cache pelo novo id, por que sempre tá atualizando o cache.
 
+
+todo:
+    -   Fazer loop de 'Auth → Home → Auth' (identificar, redirecionar para home, voltar para tela de 
+        identificação se usuário quiser trocar algo)
+    -   eu quero que isso seja controlado por client, quando o usuário clicar em confirmar manda um callback?
 
     - window manager?
 
+    genial, passar método de client (renderizar home) como parametro para a criação da classe auth, executar quando usuário fazer
+    confirmação valida de auth!!
 
 *
+
+2. Mover preload de assets para utils/
 
 <!-- estrutura de usuário salvo no cache -->
 

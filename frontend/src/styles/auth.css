@@ -72,6 +72,7 @@
     height: 180px;
     border: 2px;
     width: 135px;
+    position: relative;
 }
 
 .char p {
@@ -103,4 +104,9 @@
         0 0 8px rgba(255, 80, 0, 0.8),
         0 0 16px rgba(255, 50, 0, 0.6),
         0 4px 0 #8a1c00;
+}
+
+.charPointer{
+    position: absolute;
+    font-size: 20px;
 }

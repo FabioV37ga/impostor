@@ -3,26 +3,22 @@ import { getElements, clientElements } from "../selectors/client.selector.js"
 import ClientView from "../views/client.view.js";
 import AuthController from "./auth.controller.js";
 import HomeController from "./home.controller.js";
+import { assets } from "../utils/assetList.util.js";
 
 class ClientController {
     static socket: Socket
+    static elements: clientElements
+    static view = new ClientView()
+    static currentPage: "auth" | "home" | "creating" | "joining" | "lobby" | "game" = "auth"
     static createLobbyDelay: Boolean = false;
     static areAssetsLoaded: Boolean = false;
-    static currentPage: "home" | "creating" | "joining" | "lobby" | "game" = "home"
-    static view = new ClientView()
-    static elements: clientElements
-    static isFirstAccess: boolean = true
+    static isFirstAccess: boolean = true;
+    static authScreen: AuthController;
+    static homeScreen: HomeController
 
 
     static async preloadAssets() {
         ClientController.elements = getElements()
-
-        const assets = [
-            "/background.png",
-            "/logo.png",
-            "/charMale.png",
-            "/charFemale.png"
-        ]
 
         await Promise.all(
             assets.map(src => {
@@ -70,9 +66,10 @@ class ClientController {
 
         ClientController.socket = io(getSocketUrl(url))
 
-        // -----------------
-        // Eventos de conexão
+        ClientController.handleSocketEvents()
+    }
 
+    static handleSocketEvents() {
 
         // Erro de conexão
         ClientController.socket.on("connect_error", (err) => {
@@ -90,14 +87,7 @@ class ClientController {
 
             setTimeout(() => {
                 ClientController.view.toggleLoadingScreen(false)
-                const authsScreen = new AuthController(ClientController.socket.id as string, this.isFirstAccess)
-                this.isFirstAccess = false
-
-                if (authsScreen.windowState == "hidden"){
-                    document.querySelector(".auth")?.remove()
-                    const home = new HomeController()
-                }
-
+                ClientController.authScreen = new AuthController(ClientController.socket.id as string, ()=>{ this.homeScreen = new HomeController()})
             }, 2000);
 
         });
@@ -114,18 +104,20 @@ class ClientController {
         });
     }
 
-    static authenticate(nickname: string, character: string, id: string) {
+    // static authenticate(nickname: string, character: string, id: string) {
+    //     const userData = {
+    //         nickname,
+    //         character,
+    //         id
+    //     }
+    //     // ClientController.socket.emit("authenticate", userData)
 
-    }
+    // }
 
     static async createLobby(): Promise<string | "error"> {
 
-        // todo?: adicionar parâmetros?
         if (ClientController.createLobbyDelay == true) {
-            console.log("[front] (client-connection) processo de criação de lobby já em andamento.")
-            return new Promise((resolve) => {
-                resolve("error")
-            })
+            return "error"
         }
 
         else {
@@ -141,6 +133,8 @@ class ClientController {
                     setTimeout(() => {
                         ClientController.createLobbyDelay = false;
                     }, 3000);
+
+                    console.log("[front] (client-connection) lobby criado com código de convite:", inviteCode)
 
                     resolve(inviteCode as string)
                 })
