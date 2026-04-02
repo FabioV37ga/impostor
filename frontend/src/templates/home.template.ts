@@ -1,6 +1,6 @@
 import html from "nanohtml"
 
-export default function home(userData: {nickname: string, character: string}) {
+export default function home(userData: { nickname: string, character: string }) {
     return html`
     <section class="button-area">
         <div class="button-area-text">

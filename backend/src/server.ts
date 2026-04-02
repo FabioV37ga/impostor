@@ -36,12 +36,12 @@ io.on("connection", (socket) => {
     socket.on("create-lobby", (words, callback) => {
 
         function generateInviteCode(): string {
-            const keys = "abcdefghijklmnopqrstuvwxyz";
+            const keys = "abcdefghijklmnopqrstuvwxyz123456789";
 
             let inviteCode = '';
 
             for (let i = 0; i < 6; i++) {
-                const randomKey = Math.floor(Math.random() * 26);
+                const randomKey = Math.floor(Math.random() * 35);
                 inviteCode += keys[randomKey];
             }
 
