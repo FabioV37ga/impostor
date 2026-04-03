@@ -9,9 +9,9 @@ export function createRoom(confirmedWords?: HTMLElement[]):HTMLElement {
             <span class="horizontal-bar"></span>
         </div>
         <div class="create-room-inputs">
-            <a class="randomizeWords">
+            <button class="randomizeWords">
                 <i class="fa fa-random" aria-hidden="true"></i>
-            </a>
+            </button>
             <div class="create-room-words" contenteditable="true">
                 ${confirmedWords ? confirmedWords : ""}
             </div>
@@ -19,7 +19,7 @@ export function createRoom(confirmedWords?: HTMLElement[]):HTMLElement {
                 * Utilize vírgula para separar as palavras.
             </span>
             <button class="confirmRoomCreation">Criar sala</button>
-            <a id="createRoom-close">voltar</a>
+            <button id="createRoom-close">voltar</button>
         </div>
     </section>
 `

@@ -25,8 +25,7 @@ class AuthController {
         }
 
         this.callback = callback
-        // todo: adicionar cache para evitar que o usuário tenha que preencher os dados toda vez que entrar na página de autenticação
-        // cache here
+        
         var localStorageCache = localStorage.getItem("impostor_player_data")
         var cache: user | null = localStorageCache ? JSON.parse(localStorageCache) : null
 

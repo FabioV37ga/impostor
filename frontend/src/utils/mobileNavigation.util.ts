@@ -19,6 +19,7 @@ export class mobileNavigation {
     }
 
     static popCurrent() {
+        // todo: padronizar com selector
         var a = document.querySelector(".content")!.children[0] as HTMLElement
         a.remove()
     }

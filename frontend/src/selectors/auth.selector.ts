@@ -13,7 +13,7 @@ export function getElements(): authElements {
     const nicknameInput = u("#nickname_input").first() as HTMLInputElement
     const characterInputs = u(".char").nodes as HTMLElement[]
     const confirmButton = u("#confirm-auth").first() as HTMLElement
-    
+
     return {
         authScreen,
         nicknameInput,
