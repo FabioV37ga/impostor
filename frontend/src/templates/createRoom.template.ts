@@ -9,7 +9,7 @@ export function createRoom(confirmedWords?: HTMLElement[]):HTMLElement {
             <span class="horizontal-bar"></span>
         </div>
         <div class="create-room-inputs">
-            <a href="" class="randomizeWords">
+            <a class="randomizeWords">
                 <i class="fa fa-random" aria-hidden="true"></i>
             </a>
             <div class="create-room-words" contenteditable="true">
