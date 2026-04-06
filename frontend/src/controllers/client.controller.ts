@@ -89,11 +89,11 @@ class ClientController {
     static render(page: "auth" | "home" | "creating" | "joining" | "lobby" | "game") {
         switch (page) {
             case "auth":
-                mobileNavigation.renderAuth = () =>{
+                mobileNavigation.renderAuth = () => {
                     ClientController.authScreen = new AuthController(
                         ClientController.socket.id as string,
-                        () => { 
-                            mobileNavigation.renderHome = () => new HomeController(AuthController.user) 
+                        () => {
+                            mobileNavigation.renderHome = () => new HomeController(AuthController.user)
                             mobileNavigation.renderHome()
                         }
                     )
@@ -115,6 +115,8 @@ class ClientController {
 
     static async createLobby(): Promise<string | "error"> {
 
+        AuthController.user.isHost = true;
+
         if (ClientController.createLobbyDelay == true) {
             return "error"
         }
@@ -127,7 +129,7 @@ class ClientController {
 
 
             return new Promise((resolve) => {
-                ClientController.socket.emit("create-lobby", words, (inviteCode: string) => {
+                ClientController.socket.emit("create-lobby", AuthController.user, words, (inviteCode: string) => {
 
                     setTimeout(() => {
                         ClientController.createLobbyDelay = false;
@@ -141,6 +143,17 @@ class ClientController {
                 })
             })
         }
+    }
+
+    static async joinLobby(inviteCode: string): Promise<string | "error"> {
+
+        AuthController.user.isHost = false;
+        
+        console.log(AuthController.user)
+        return new Promise((resolve) => {
+            ClientController.socket.emit(`${inviteCode}-join`, inviteCode, AuthController.user)
+            resolve("solved")
+        })
     }
 }
 

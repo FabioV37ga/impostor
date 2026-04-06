@@ -2,6 +2,7 @@ import CreateRoomView from "../views/createRoom.view.js";
 import { mobileNavigation } from "../utils/mobileNavigation.util.js";
 import { getElements, createRoomElements } from "../selectors/createRoom.selector.js";
 import u from "umbrellajs"
+import ClientController from "./client.controller.js";
 
 class CreateRoomController {
     view: CreateRoomView
@@ -21,6 +22,10 @@ class CreateRoomController {
     }
 
     addClickEvents(){
+        u(this.elements.confirm).on("click", ()=>{
+            ClientController.createLobby()
+        })
+
         u(this.elements.close).on("click", ()=>{
             this.return()
             console.log("click on close")

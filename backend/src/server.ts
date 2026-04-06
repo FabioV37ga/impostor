@@ -3,6 +3,7 @@
 import express from "express";
 import http from "http";
 import { Server } from "socket.io";
+import { addSocketListeners } from "./listeners/index.listener";
 
 const app = express();
 const server = http.createServer(app);
@@ -20,44 +21,8 @@ export const io = new Server(server, {
     }
 });
 
-io.on("connection", (socket) => {
-    console.log("--+ jogador conectado:", socket.id);
+addSocketListeners(io)
 
-    socket.onAny((event, ...args) => {
-        console.log("evento recebido:", event, args);
-
-        if (/^.+-spacebar/.test(event)) {
-            console.log("evento de spacebar recebido:", event, args)
-            socket.emit("spacebar-received", event, args)
-        }
-
-    });
-
-    socket.on("create-lobby", (words, callback) => {
-
-        function generateInviteCode(): string {
-            const keys = "abcdefghijklmnopqrstuvwxyz123456789";
-
-            let inviteCode = '';
-
-            for (let i = 0; i < 6; i++) {
-                const randomKey = Math.floor(Math.random() * 35);
-                inviteCode += keys[randomKey];
-            }
-
-            return inviteCode;
-        }
-
-        const inviteCode = generateInviteCode();
-
-        console.log("lobby criado:", inviteCode);
-
-        callback(inviteCode);
-    });
-
-});
-
-// 👇 MUITO IMPORTANTE
 server.listen(PORT, () => {
     console.log("Servidor rodando na porta", PORT);
 });

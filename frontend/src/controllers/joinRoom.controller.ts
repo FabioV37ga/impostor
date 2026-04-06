@@ -2,6 +2,7 @@ import JoinRoomView from "../views/joinRoom.view.js";
 import { mobileNavigation } from "../utils/mobileNavigation.util.js";
 import { getElements, JoinRoomElements } from "../selectors/joinRoom.selector.js";
 import u from "umbrellajs"
+import ClientController from "./client.controller.js";
 
 class JoinRoomController {
     view: JoinRoomView
@@ -21,6 +22,11 @@ class JoinRoomController {
     }
 
     addClickEvents(){
+        u(this.elements.confirm).on("click", ()=>{
+            var inviteCode = this.elements.code.value
+            ClientController.joinLobby(inviteCode)
+        })
+
         u(this.elements.close).on("click", ()=>{
             this.return()
             console.log("click on close")

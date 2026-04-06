@@ -4,9 +4,10 @@ import AuthView from "../views/auth.view.js";
 import { mobileNavigation } from "../utils/mobileNavigation.util.js";
 
 interface user {
+    id: string
+    isHost: boolean
     nickname: string
     character: string
-    id: string
 }
 
 class AuthController {
@@ -30,9 +31,10 @@ class AuthController {
         var cache: user | null = localStorageCache ? JSON.parse(localStorageCache) : null
 
         this.userData = {
+            id: userID,
+            isHost: false,
             nickname: cache ? cache.nickname : "",
             character: cache ? cache.character : "charMale",
-            id: userID
         }
 
         AuthController.user = this.userData
