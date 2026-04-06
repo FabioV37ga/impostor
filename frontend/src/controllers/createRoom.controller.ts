@@ -23,6 +23,7 @@ class CreateRoomController {
     addClickEvents(){
         u(this.elements.close).on("click", ()=>{
             this.return()
+            console.log("click on close")
         })
     }
 

@@ -13,7 +13,7 @@ export function getElements(): createRoomElements {
     const random = u(".randomizeWords").first() as HTMLElement
     const wordInput = u(".create-room-words").first() as HTMLElement
     const confirm = u(".confirmRoomCreation").first() as HTMLElement
-    const close = u(".createRoom-close").first() as HTMLElement
+    const close = u("#createRoom-close").first() as HTMLElement
 
     return {
         window,

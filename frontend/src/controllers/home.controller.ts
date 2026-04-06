@@ -3,16 +3,17 @@ import u from "umbrellajs"
 import ClientController from "./client.controller.js"
 import homeView from "../views/home.view.js"
 import CreateRoomController from "./createRoom.controller.js"
+import JoinRoomController from "./joinRoom.controller.js"
 import { mobileNavigation } from "../utils/mobileNavigation.util.js"
 
 class HomeController {
     static elements: homeElements
-    userData: {nickname: string, character: string}
+    userData: { nickname: string, character: string }
     view: homeView
 
     constructor(userData: { nickname: string, character: string }) {
         if (!mobileNavigation.isRenderingFromPopstate) {
-            history.pushState({tela: "home"}, '', '')
+            history.pushState({ tela: "home" }, '', '')
         }
         this.view = new homeView(userData)
         this.userData = userData
@@ -32,8 +33,8 @@ class HomeController {
 
             // }
             this.view.remove(HomeController.elements.homeScreen)
-            
-            mobileNavigation.renderCreateRoom = ()=>{
+
+            mobileNavigation.renderCreateRoom = () => {
                 new CreateRoomController(() => mobileNavigation.renderHome())
             }
 
@@ -46,6 +47,17 @@ class HomeController {
             this.view.remove(HomeController.elements.homeScreen);
 
             ClientController.render("auth")
+        })
+
+        u(HomeController.elements.joinLobby).on("click", () => {
+            this.view.remove(HomeController.elements.homeScreen)
+
+
+            mobileNavigation.renderJoinRoom = () =>{
+            new JoinRoomController( ()=> mobileNavigation.renderHome() )
+            }
+
+            mobileNavigation.renderJoinRoom()
         })
     }
 }
