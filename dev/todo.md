@@ -10,13 +10,15 @@ todo:
     → Adicionar efeitos visuais de erro de autenticação (dados insuficientes).
 
     @game
-    → Desenvolver tela de lobby "aguardando jogadores"
-    → Desenvolver tela de lobby "aguardando jogadores - host"
+    → Desenvolver lógica da tela de lobby (players e host)
 
     → Desenvolver sistema de send&recive para atualizar lista de jogadores para todos os jogadores da sala
 
     @extra
     → Adicionar função para salvar palavras confirmadas em cache (criação de sala)
+
+    @late dev
+    → Ajustar tamanhos para o mobile, eles parecem quebrar em dispositivos mobile apesar de funcionarem na responsividade do navegador.
 
 
 

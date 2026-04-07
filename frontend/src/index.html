@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#ff0000">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="red">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Impostor - Engane seus amigos!</title>
     <link rel="stylesheet" href="styles/document.css">
@@ -15,6 +13,7 @@
     <link rel="stylesheet" href="styles/home.css">
     <link rel="stylesheet" href="styles/createRoom.css">
     <link rel="stylesheet" href="styles/joinRoom.css">
+    <link rel="stylesheet" href="styles/lobby.css">
     <!-- <link rel="stylesheet" href="styles/home.css"> -->
 </head>
 
@@ -33,6 +32,35 @@
             </div>
         </section>
         <section class="content">
+            <section class="lobby">
+                <div class="lobby-title">
+                    <span class="horizontal-bar"></span>
+                    <p class="lobby-title-p">
+                        Sala: <span id="lobby-title-inviteCode">aj2o3p</span>
+                    </p>
+                    <span class="horizontal-bar"></span>
+                </div>
+                <div class="lobby-waiting">
+                    Aguardando jogadores...
+                </div>
+                <ul class="lobby-playerList">
+                    <li class="lobby-player">
+                        <img src="./charMale.png" alt="">
+                        <p class="player-nickname">
+                            Fulano
+                        </p>
+                        <div class="player-hostMark">
+                            host
+                        </div>
+                    </li>
+                </ul>
+                <p class="wait-playerCount">
+                    Esperando 1/6 jogadores...
+                </p>
+                <button id="host-startGame">
+                    Iniciar partida
+                </button>
+            </section>
         </section>
     </main>
 </body>

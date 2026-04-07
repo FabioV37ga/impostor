@@ -68,7 +68,7 @@ class ClientController {
             setTimeout(() => {
                 ClientController.view.toggleLoadingScreen(false)
 
-                ClientController.render("auth")
+                // ClientController.render("auth")
 
             }, 2000);
 
