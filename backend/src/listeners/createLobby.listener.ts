@@ -11,6 +11,6 @@ export function handleCreateLobby(socket: Socket) {
 
         var lobby = new LobbyController(inviteCode, host, words)
 
-        callback(inviteCode);
+        callback(lobby.lobbyObject);
     });
 }

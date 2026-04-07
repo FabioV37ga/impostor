@@ -124,21 +124,21 @@ class ClientController {
             ClientController.createLobbyDelay = true;
 
             return new Promise((resolve) => {
-                ClientController.socket.emit("create-lobby", AuthController.user, words, (inviteCode: string) => {
+                ClientController.socket.emit("create-lobby", AuthController.user, words, (lobbyObject: any) => {
 
                     setTimeout(() => {
                         ClientController.createLobbyDelay = false;
                     }, 3000);
 
-                    console.log("[front] (client-connection) lobby criado com código de convite:", inviteCode)
+                    console.log("[front] (client-connection) lobby criado com código de convite:", lobbyObject.id)
 
                     const currentScreen = document.querySelector(".content")!.children[0] as HTMLElement
                     currentScreen.remove()
 
-                    const lobby = new LobbyController(AuthController.user, inviteCode, words)
+                    const lobby = new LobbyController(AuthController.user, lobbyObject.id, words)
 
 
-                    resolve(inviteCode as string)
+                    resolve(lobbyObject.id as string)
 
                 })
             })
@@ -151,12 +151,7 @@ class ClientController {
 
         console.log(AuthController.user)
         return new Promise((resolve) => {
-            
-            ClientController.socket.on(`${inviteCode}-player-joined`, (callback)=>{
-                console.log(callback)
-
-            })
-
+        
             ClientController.socket.emit(`${inviteCode}-join`, inviteCode, AuthController.user)
 
             const currentScreen = document.querySelector(".content")!.children[0] as HTMLElement

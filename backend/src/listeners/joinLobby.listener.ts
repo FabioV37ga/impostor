@@ -21,7 +21,8 @@ export function handleJoinLobby(socket: Socket, event: any, ...args: any) {
         }
 
         socket.join(inviteCode)
-        socket.to(inviteCode).emit(`${inviteCode}-player-joined`, user)
+        socket.emit(`${inviteCode}-join-success`, lobbies[joinedLobbyIndex])
+        socket.to(inviteCode).emit(`${inviteCode}-player-joined`, lobbies[joinedLobbyIndex])
 
     }
 

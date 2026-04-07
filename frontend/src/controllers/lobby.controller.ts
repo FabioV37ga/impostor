@@ -19,12 +19,14 @@ class LobbyController {
         this.host = host
         words ? this.words = words : null;
 
-        this.view = new LobbyView(inviteCode, words ? "create" : "join" )
+        this.view = new LobbyView(inviteCode, words ? "create" : "join")
 
         console.log(host)
         console.log(host)
         console.log(host)
-        this.addPlayerToLobby(host)
+
+        if (host.isHost)
+            this.addPlayerToLobby(host)
 
         this.addSocketListeners(this.inviteCode)
     }
@@ -36,9 +38,23 @@ class LobbyController {
     addSocketListeners(inviteCode: string) {
         console.log(inviteCode + "-player-joined added")
 
-        ClientController.socket.on(`${inviteCode}-player-joined`, (user: player) => {
-            console.log("Socorro!!!!!!!!!!!!!!!")
-            this.addPlayerToLobby(user)
+        ClientController.socket.on(`${inviteCode}-join-success`, (lobbyObject: any) => {
+
+            this.lobbyInfo = lobbyObject
+            this.words = lobbyObject.words
+            this.inviteCode = lobbyObject.id
+
+            var players = lobbyObject.players
+
+            for (let player = 0; player <= players.length - 1; player++) {
+                this.addPlayerToLobby(players[player])
+            }
+        })
+
+        ClientController.socket.on(`${inviteCode}-player-joined`, (lobbyObject: any) => {
+            console.log("Novo jogador entrou na sala:", lobbyObject)
+            this.lobbyInfo = lobbyObject
+            this.addPlayerToLobby(lobbyObject.players[lobbyObject.players.length - 1])
         })
     }
 
