@@ -2,11 +2,12 @@ export function getRandomWords(): string[] {
     let words: string[] = [];
 
     for (let i = 0; i <= 9; i++) {
-        const randomIndex = Math.floor(Math.random() * 209)
+        const randomIndex = Math.floor(Math.random() * wordList.length)
 
         words.push(
             wordList[randomIndex]
         )
+        console.log(randomIndex)
 
     }
     return words

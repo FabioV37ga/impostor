@@ -37,7 +37,7 @@ class CreateRoomView extends ui {
     }
 
     confirmWord(word: string, elements: createRoomElements) {
-        console.log(elements)
+        // console.log(word)
 
         elements.wordInput.append(
             confirmedWord(word)
