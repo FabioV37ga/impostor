@@ -4,5 +4,6 @@ export interface lobby{
     id: string;
     host: player;
     players: player[];
-    state: string
+    words: string[]
+    state: string;
 }

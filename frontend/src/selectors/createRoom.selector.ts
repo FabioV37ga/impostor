@@ -23,3 +23,7 @@ export function getElements(): createRoomElements {
         close
     }
 }
+
+export function getConfirmedWords(): HTMLElement[]{
+    return u(".confirmedWord").nodes as HTMLElement[]
+}

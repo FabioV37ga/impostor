@@ -25,6 +25,7 @@ class LobbyController{
             id: this.inviteCode,
             host: this.host,
             players: this.players,
+            words: this.words,
             state: this.state
         }
         

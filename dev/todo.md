@@ -1,11 +1,20 @@
 # Primary
 
-2. Desenvolver join room
-
-
 todo:
-    - Adicionar efeitos visuais de erro de autenticação (dados insuficientes).
-    - Adicionar efeitos visuais de erro de criação de sala (dados insuficientes).
+    @funções
+    → Adcionar função para adicionar palavras aleatorias na criação de sala
+
+    @emits de erros
+    → Adicionar efeitos visuals de erro de create (Palavras insuficientes)
+    → Adicionar efeitos visuais de erro de join (código incorreto)
+    → Adicionar efeitos visuais de erro de autenticação (dados insuficientes).
+
+    @game
+    → Desenvolver tela de lobby "aguardando jogadores"
+    → Desenvolver tela de lobby "aguardando jogadores - host"
+
+    → Desenvolver sistema de send&recive para atualizar lista de jogadores para todos os jogadores da sala
+
 
 
 

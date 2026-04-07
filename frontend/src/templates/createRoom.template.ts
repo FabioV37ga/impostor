@@ -13,7 +13,11 @@ export function createRoom(confirmedWords?: HTMLElement[]):HTMLElement {
                 <i class="fa fa-random" aria-hidden="true"></i>
             </button>
             <div class="create-room-words" contenteditable="true">
-                ${confirmedWords ? confirmedWords : ""}
+            
+            <span class="confirmedWord" contenteditable="false">
+            teste
+            </span>
+                
             </div>
             <span class="comma-note">
                 * Utilize vírgula para separar as palavras.
@@ -32,3 +36,5 @@ export function confirmedWord(word: string) {
     </span>
     `
 }
+
+// ${confirmedWords ? confirmedWords : ""}

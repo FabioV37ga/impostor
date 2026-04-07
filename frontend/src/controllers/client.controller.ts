@@ -113,7 +113,7 @@ class ClientController {
 
     // }
 
-    static async createLobby(): Promise<string | "error"> {
+    static async createLobby(words: string[]): Promise<string | "error"> {
 
         AuthController.user.isHost = true;
 
@@ -125,7 +125,7 @@ class ClientController {
             ClientController.createLobbyDelay = true;
 
 
-            const words = ["Panela", "Cadeira", "Computador", "Garfo", "Livro", "Telefone", "Relógio", "Janela", "Porta", "Mesa"];
+            // const words = ["Panela", "Cadeira", "Computador", "Garfo", "Livro", "Telefone", "Relógio", "Janela", "Porta", "Mesa"];
 
 
             return new Promise((resolve) => {
