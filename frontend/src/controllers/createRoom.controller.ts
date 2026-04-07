@@ -22,15 +22,13 @@ class CreateRoomController {
     }
 
     addClickEvents(){
-        u(this.elements.confirm).on("click", ()=>{
-            ClientController.createLobby(this.returnConfirmedWords())
+
+        // Adicionar palavras aleatoriamente
+        u(this.elements.random).on("click", ()=>{
+            this.view.randomizeWords()
         })
 
-        u(this.elements.close).on("click", ()=>{
-            this.return()
-            console.log("click on close")
-        })
-
+        // Adicionar palavras manualmente
         u(this.elements.wordInput).on("keyup", (e: Event) => {
             const event = e as KeyboardEvent
             
@@ -38,6 +36,19 @@ class CreateRoomController {
                 this.view.setWord(this.elements.wordInput)
             }
         })
+
+        // Confirmar criação de sala
+        u(this.elements.confirm).on("click", ()=>{
+            ClientController.createLobby(this.returnConfirmedWords())
+        })
+
+        // Botão voltar
+        u(this.elements.close).on("click", ()=>{
+            this.return()
+            console.log("click on close")
+        })
+
+        
     }
 
     returnConfirmedWords(): string[] {
