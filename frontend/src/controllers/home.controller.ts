@@ -26,12 +26,7 @@ class HomeController {
 
         u(HomeController.elements.createLobby).on("click", async () => {
             console.log("[click event] - criar lobby (botão)")
-            // var status = await ClientController.createLobby()
-
-            // if (status == "error") {
-            //     console.log("[click event] - processo de criação do Lobby já em andamento, recusado.")
-
-            // }
+            
             this.view.remove(HomeController.elements.homeScreen)
 
             mobileNavigation.renderCreateRoom = () => {

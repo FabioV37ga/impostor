@@ -6,6 +6,7 @@ import HomeController from "./home.controller.js";
 // import { assets } from "../utils/assetList.util.js";
 import { preloadAssets } from "../utils/preloadAssets.js";
 import { mobileNavigation } from "../utils/mobileNavigation.util.js";
+import LobbyController from "./lobby.controller.js";
 
 class ClientController {
     static socket: Socket
@@ -51,6 +52,8 @@ class ClientController {
 
     static handleSocketEvents() {
 
+
+
         // Erro de conexão
         ClientController.socket.on("connect_error", (err) => {
             console.log("[front] (client-connection) conexão ao socket falhou, aguardando...")
@@ -58,6 +61,8 @@ class ClientController {
             ClientController.view.toggleLoadingScreen(true)
             return err;
         })
+
+
 
         // Conexão estabelecida (primeira vez)
         ClientController.socket.once("connect", async () => {
@@ -68,11 +73,12 @@ class ClientController {
             setTimeout(() => {
                 ClientController.view.toggleLoadingScreen(false)
 
-                // ClientController.render("auth")
-
+                ClientController.render("auth")
             }, 2000);
 
         });
+
+
 
         // Reconexão (após perda de conexão)
         ClientController.socket.on("connect", async () => {
@@ -103,30 +109,19 @@ class ClientController {
         }
     }
 
-    // static authenticate(nickname: string, character: string, id: string) {
-    //     const userData = {
-    //         nickname,
-    //         character,
-    //         id
-    //     }
-    //     // ClientController.socket.emit("authenticate", userData)
-
-    // }
 
     static async createLobby(words: string[]): Promise<string | "error"> {
 
         AuthController.user.isHost = true;
 
         if (ClientController.createLobbyDelay == true) {
+
             return "error"
         }
 
         else {
+
             ClientController.createLobbyDelay = true;
-
-
-            // const words = ["Panela", "Cadeira", "Computador", "Garfo", "Livro", "Telefone", "Relógio", "Janela", "Porta", "Mesa"];
-
 
             return new Promise((resolve) => {
                 ClientController.socket.emit("create-lobby", AuthController.user, words, (inviteCode: string) => {
@@ -137,9 +132,14 @@ class ClientController {
 
                     console.log("[front] (client-connection) lobby criado com código de convite:", inviteCode)
 
-                    ClientController.temp = inviteCode
+                    const currentScreen = document.querySelector(".content")!.children[0] as HTMLElement
+                    currentScreen.remove()
+
+                    const lobby = new LobbyController(AuthController.user, inviteCode, words)
+
 
                     resolve(inviteCode as string)
+
                 })
             })
         }
@@ -148,10 +148,21 @@ class ClientController {
     static async joinLobby(inviteCode: string): Promise<string | "error"> {
 
         AuthController.user.isHost = false;
-        
+
         console.log(AuthController.user)
         return new Promise((resolve) => {
+            
+            ClientController.socket.on(`${inviteCode}-player-joined`, (callback)=>{
+                console.log(callback)
+
+            })
+
             ClientController.socket.emit(`${inviteCode}-join`, inviteCode, AuthController.user)
+
+            const currentScreen = document.querySelector(".content")!.children[0] as HTMLElement
+            currentScreen.remove()
+
+            const lobby = new LobbyController(AuthController.user, inviteCode)
             resolve("solved")
         })
     }

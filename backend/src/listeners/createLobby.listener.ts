@@ -7,6 +7,8 @@ export function handleCreateLobby(socket: Socket) {
 
         const inviteCode = generateInviteCode();
 
+        socket.join(inviteCode)
+
         var lobby = new LobbyController(inviteCode, host, words)
 
         callback(inviteCode);

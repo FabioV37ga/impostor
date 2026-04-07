@@ -19,9 +19,10 @@ class CreateRoomView extends ui {
         this.elements = getElements()
         var word: string;
 
+
         input.childNodes.forEach(child => {
             if (child.nodeType === Node.TEXT_NODE) {
-                word = child.textContent!.trim().replace(",", "")
+                word = child.textContent!.replace(",", "").trim()
                 if (word) {
 
                     this.confirmWord(word, getElements())

@@ -10,9 +10,9 @@ todo:
     → Adicionar efeitos visuais de erro de autenticação (dados insuficientes).
 
     @game
-    → Desenvolver lógica da tela de lobby (players e host)
+    → Desenvolver lógica da tela de lobby (players)
 
-    → Desenvolver sistema de send&recive para atualizar lista de jogadores para todos os jogadores da sala
+    → Desenvolver sistema de send&recive para atualizar lista de jogadores para players (host ta pronto)
 
     @extra
     → Adicionar função para salvar palavras confirmadas em cache (criação de sala)

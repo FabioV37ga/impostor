@@ -1,12 +1,12 @@
 import html from "nanohtml"
 
-export function lobbyScreen() {
+export function lobbyScreen(inviteCode:string) {
     return html`
         <section class="lobby">
             <div class="lobby-title">
                 <span class="horizontal-bar"></span>
                 <p class="lobby-title-p">
-                    Sala: <span id="lobby-title-inviteCode">aj2o3p</span>
+                    Sala: <span id="lobby-title-inviteCode">${inviteCode}</span>
                 </p>
                 <span class="horizontal-bar"></span>
             </div>
@@ -34,11 +34,14 @@ export function lobbyPlayer(char: string, nickname: string, isHost: boolean) {
         <p class="player-nickname">
             ${nickname}
         </p>
-        ${isHost ?
-            `<div class="player-hostMark">
-            host
-        </div>`
-            : null}
+        ${isHost ? hostMark : ""}
     </li>
     `
 }
+
+const hostMark: HTMLElement =
+    html`
+    <div class="player-hostMark">
+        host
+    </div>
+`

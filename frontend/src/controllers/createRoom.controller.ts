@@ -29,35 +29,44 @@ class CreateRoomController {
         })
 
         // Adicionar palavras manualmente
-        u(this.elements.wordInput).on("keyup", (e: Event) => {
-            const event = e as KeyboardEvent
+        u(this.elements.wordInput).on("input", (e: any) => {
+            const event = e as InputEvent
             
-            if(event.key === ','){
+            if(event.data === ','){
                 this.view.setWord(this.elements.wordInput)
             }
         })
 
         // Confirmar criação de sala
         u(this.elements.confirm).on("click", ()=>{
-            ClientController.createLobby(this.returnConfirmedWords())
+            var confirmedWords: string[] | false = this.returnConfirmedWords()
+
+            if (confirmedWords != false)
+                ClientController.createLobby(confirmedWords)
+            else{
+                console.log("Erro na criação: Palavras insuficientes.")
+            }
+
         })
 
         // Botão voltar
         u(this.elements.close).on("click", ()=>{
             this.return()
-            console.log("click on close")
         })
 
         
     }
 
-    returnConfirmedWords(): string[] {
+    returnConfirmedWords(): string[] | false{
         var confirmedWordElements = getConfirmedWords()
         var confirmedWordList: string[] = []
 
         confirmedWordElements.forEach(element => {
             confirmedWordList.push(element.textContent.trim())
         });
+
+        if (confirmedWordList.length < 1)
+            return false
 
         return confirmedWordList
     }

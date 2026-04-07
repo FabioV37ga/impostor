@@ -1,6 +1,6 @@
 import html from "nanohtml"
 
-export function createRoom(confirmedWords?: HTMLElement[]):HTMLElement {
+export function createRoom(confirmedWords?: HTMLElement[]): HTMLElement {
     return html`
     <section class="create-room">
         <div class="create-room-title">
@@ -13,11 +13,7 @@ export function createRoom(confirmedWords?: HTMLElement[]):HTMLElement {
                 <i class="fa fa-random" aria-hidden="true"></i>
             </button>
             <div class="create-room-words" contenteditable="true">
-            
-            <span class="confirmedWord" contenteditable="false">
-            teste
-            </span>
-                
+                ${confirmedWords ? confirmedWords : ""}                
             </div>
             <span class="comma-note">
                 * Utilize vírgula para separar as palavras.
@@ -37,4 +33,3 @@ export function confirmedWord(word: string) {
     `
 }
 
-// ${confirmedWords ? confirmedWords : ""}
