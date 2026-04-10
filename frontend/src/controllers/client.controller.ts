@@ -7,6 +7,7 @@ import HomeController from "./home.controller.js";
 import { preloadAssets } from "../utils/preloadAssets.js";
 import { mobileNavigation } from "../utils/mobileNavigation.util.js";
 import LobbyController from "./lobby.controller.js";
+import { lobby } from "../models/lobby.model.js";
 
 class ClientController {
     static socket: Socket
@@ -124,7 +125,7 @@ class ClientController {
             ClientController.createLobbyDelay = true;
 
             return new Promise((resolve) => {
-                ClientController.socket.emit("create-lobby", AuthController.user, words, (lobbyObject: any) => {
+                ClientController.socket.emit("create-lobby", AuthController.user, words, (lobbyObject: lobby) => {
 
                     setTimeout(() => {
                         ClientController.createLobbyDelay = false;
@@ -145,20 +146,16 @@ class ClientController {
         }
     }
 
-    static async joinLobby(inviteCode: string): Promise<string | "error"> {
+    static async joinLobby(inviteCode: string) {
 
         AuthController.user.isHost = false;
-
-        console.log(AuthController.user)
-        return new Promise((resolve) => {
+        ClientController.socket.emit(`lobby-join`, inviteCode, AuthController.user, (isInviteValid: boolean) => {
+            if (isInviteValid == true){
+                const currentScreen = document.querySelector(".content")!.children[0] as HTMLElement
+                currentScreen.remove()
         
-            ClientController.socket.emit(`${inviteCode}-join`, inviteCode, AuthController.user)
-
-            const currentScreen = document.querySelector(".content")!.children[0] as HTMLElement
-            currentScreen.remove()
-
-            const lobby = new LobbyController(AuthController.user, inviteCode)
-            resolve("solved")
+                const lobby = new LobbyController(AuthController.user, inviteCode)
+            }
         })
     }
 }

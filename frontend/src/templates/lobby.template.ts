@@ -1,6 +1,7 @@
 import html from "nanohtml"
+import AuthController from "../controllers/auth.controller.js"
 
-export function lobbyScreen(inviteCode:string) {
+export function lobbyScreen(inviteCode: string) {
     return html`
         <section class="lobby">
             <div class="lobby-title">
@@ -19,9 +20,11 @@ export function lobbyScreen(inviteCode:string) {
             <p class="wait-playerCount">
                 Esperando 1/6 jogadores...
             </p>
-            <button id="host-startGame">
-                Iniciar partida
-            </button>
+            ${AuthController.user.isHost ?
+            startGame :
+            null
+        }
+            
         </section>
     
     `
@@ -44,4 +47,11 @@ const hostMark: HTMLElement =
     <div class="player-hostMark">
         host
     </div>
+`
+
+const startGame: HTMLElement =
+    html`
+    <button id="host-startGame">
+        Iniciar partida
+    </button>
 `

@@ -1,15 +1,10 @@
 import { Socket } from "socket.io";
 import { lobbies } from "../database/lobbies.db";
-import { player } from "../models/player.model";
 
-export function handleJoinLobby(socket: Socket, event: any, ...args: any) {
+export function handleJoinLobby(socket: Socket) {
 
-    if (/^.+-join/.test(event)) {
+    socket.on("lobby-join", (inviteCode, user, isInviteValid) => {
         console.log("evento de join recebido")
-        
-        var inviteCode = args[0]
-        console.log(`${inviteCode}-join`)
-        var user: player = args[1]
 
         var joinedLobbyIndex = lobbies.findIndex(lobby => lobby.id == inviteCode)
 
@@ -17,13 +12,16 @@ export function handleJoinLobby(socket: Socket, event: any, ...args: any) {
 
         if (lobbies[joinedLobbyIndex]) {
             lobbies[joinedLobbyIndex].players.push(user)
-            // console.log(lobbies[joinedLobbyIndex])
+
+            isInviteValid(true)
+
+            socket.join(inviteCode)
+            socket.emit(`${inviteCode}-join-success`, lobbies[joinedLobbyIndex])
+            socket.to(inviteCode).emit(`${inviteCode}-player-joined`, lobbies[joinedLobbyIndex])
+        }else{
+            isInviteValid(false)
+            console.log("evento de join recusado: código de convite inválido")
         }
 
-        socket.join(inviteCode)
-        socket.emit(`${inviteCode}-join-success`, lobbies[joinedLobbyIndex])
-        socket.to(inviteCode).emit(`${inviteCode}-player-joined`, lobbies[joinedLobbyIndex])
-
-    }
-
+    })
 }
