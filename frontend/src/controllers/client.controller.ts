@@ -36,7 +36,7 @@ class ClientController {
             "192.168.15.1": "http://192.168.15.1:3001",
             "192.168.15.2": "http://192.168.15.2:3001",
             "onrender.com": "https://impostor-game-k9kg.onrender.com/",
-            "marcellasol.com.br": "https://marcellasol.com.br"
+            "marcellasol.com.br": "https://marcellasol.com.br:3001"
         }
 
         function getSocketUrl(url: string): string {
