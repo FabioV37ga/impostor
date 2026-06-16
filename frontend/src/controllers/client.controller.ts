@@ -36,7 +36,7 @@ class ClientController {
             "192.168.15.1": "http://192.168.15.1:3001",
             "192.168.15.2": "http://192.168.15.2:3001",
             "onrender.com": "https://impostor-game-k9kg.onrender.com/",
-            "marcellasol.com.br": "https://marcellasol.com.br:3001"
+            "marcellasol.com.br": "https://marcellasol.com.br"
         }
 
         function getSocketUrl(url: string): string {
@@ -44,7 +44,7 @@ class ClientController {
 
             const match = Object.entries(URL_MAP).find(([key]) => hostname.includes(key))
 
-            return match ? match[1] : `${protocol}//${hostname}:3001`
+            return match ? match[1] : `${protocol}//${hostname}`
         }
 
         ClientController.socket = io(getSocketUrl(url))
