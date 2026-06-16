@@ -40,10 +40,6 @@ todo:
                         - selectedWord: string
                 }
 
-        → Jogo vai ser armazenado alheio à lobby, e vão estar relacionados por invitecode?
-            - Relacionar por invite code precisa de outra função com findbyindex, vale a pena?
-        
-
 
 # Structure
 

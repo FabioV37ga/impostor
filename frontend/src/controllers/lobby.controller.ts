@@ -90,8 +90,6 @@ class LobbyController {
 
             GameController.updateLobby(this.lobbyInfo)
 
-            console.log(this.lobbyInfo)
-
             this.startGame()
         })
     }
@@ -104,7 +102,9 @@ class LobbyController {
     }
 
     startGame(){
-
+        console.log("-------- Game Started --------")
+        console.log("Game info:")
+        console.log(this.lobbyInfo)
     }
 
 }
